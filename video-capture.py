@@ -10,7 +10,8 @@ def run_main():
 
     while(True):
         ret, frame = cap.read()
-        roi = cv2.resize(frame, (FRAME_WIDTH, FRAME_WIDTH * frame.shape[0] / frame.shape[1]))
+        height, width, depth = frame.shape
+        roi = cv2.resize(frame, (FRAME_WIDTH, FRAME_WIDTH * height / width))
         gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
 
         gray_blur = cv2.GaussianBlur(gray, (15, 15), 0)
@@ -22,6 +23,8 @@ def run_main():
         circles = cv2.HoughCircles(gray_blur, cv2.HOUGH_GRADIENT, 1, 64,
                                     param1=60, param2=40, minRadius=24, maxRadius=96)
 
+
+        circle_img = np.zeros((height, width), np.uint8)
         if circles is not None:
             circles = np.uint16(np.around(circles))
             for i in circles[0, :]:
@@ -30,31 +33,16 @@ def run_main():
                 # draw the center of the circle
                 cv2.circle(roi, (i[0], i[1]), 2, (0, 0, 255), 3)
 
+                cv2.circle(circle_img, (i[0], i[1]), i[2], 1, thickness=-1)
 
-        # Morphological Closing
-        kernel = np.ones((3, 3), np.uint8)
-        closing = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE,
-            kernel, iterations=4)
 
-        #
-        # cont_img = closing.copy()
-        # im2, contours, hierarchy = cv2.findContours(cont_img, cv2.RETR_EXTERNAL,
-        #     cv2.CHAIN_APPROX_SIMPLE)
-        #
-        # for cnt in contours:
-        #     area = cv2.contourArea(cnt)
-        #     if area < 2000 or area > 4000:
-        #         continue
-        #
-        #     if len(cnt) < 5:
-        #         continue
-        #
-        #     ellipse = cv2.fitEllipse(cnt)
-        #     cv2.ellipse(roi, ellipse, (0,255,0), 2)
+        masked_data = cv2.bitwise_and(roi, roi, mask=circle_img)
 
-        cv2.imshow("Morphological Closing", closing)
+
+
         cv2.imshow("Adaptive Thresholding", thresh)
-        cv2.imshow('Contours', roi)
+        cv2.imshow('Detected Coins', masked_data)
+        cv2.imshow('Video', roi)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
