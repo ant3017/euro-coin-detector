@@ -8,6 +8,7 @@ def euro_detect(rgb_stream):
     the detection results."""
 
     gray = cv2.cvtColor(rgb_stream, cv2.COLOR_RGB2GRAY)
+    hsv = cv2.cvtColor(rgb_stream, cv2.COLOR_RGB2HSV)
 
     # Adaptive Thresholding
     gray_blur = cv2.GaussianBlur(gray, (15, 15), 0)
@@ -18,6 +19,25 @@ def euro_detect(rgb_stream):
     circles = cv2.HoughCircles(gray_blur, cv2.HOUGH_GRADIENT, 1, 64,
                                 param1=20, param2=40, minRadius=24,
                                 maxRadius=96)
+
+
+
+    # Color segmentation
+    if circles is not None:
+        circles = [circle[0] for circle in circles.tolist()]
+        for i in range(len(circles)):
+            c = circles[i]
+            print c
+            x, y, r = c[0], c[1], c[2]
+
+            # Only use half of the coin area to determine it's center color
+            r = r * 0.5
+
+            roi = hsv[int(y-r):int(y+r), int(x-r):int(x+r)]
+            print roi
+            hue_avg = sum([pixel[0] for rows in roi for pixel in rows]) / len(roi) / len(roi[0])
+            circles[i].append(hue_avg)
+            print circles[i]
 
     # cv2.imwrite('gray_blur.jpg', gray_blur)
     # cv2.imwrite('thresh.jpg', thresh)
@@ -42,21 +62,22 @@ if __name__ == "__main__":
         circle_mask = np.zeros((height, width), np.uint8)
 
         if circles is not None:
-            circles = np.uint16(np.around(circles))
 
-            for i in circles[0, :]:
+            for c in circles:
                 # Draw into the circle mask
-                cv2.circle(circle_mask, (i[0], i[1]), i[2], 1, thickness=-1)
+                cv2.circle(circle_mask, (int(c[0]), int(c[1])), int(c[2]),
+                    1, thickness=-1)
         masked_data = cv2.bitwise_and(roi, roi, mask=circle_mask)
 
         if circles is not None:
-            for i in circles[0, :]:
+            for c in circles:
                 # Draw the outer circle
-                cv2.circle(roi, (i[0], i[1]), i[2], (0, 255, 0), 2)
+                cv2.circle(roi, (int(c[0]), int(c[1])), int(c[2]),
+                    (0, 255, 0), 2)
                 # Draw the center of the circle
-                cv2.circle(roi, (i[0], i[1]), 2, (0, 0, 255), 3)
+                cv2.circle(roi, (int(c[0]), int(c[1])), 2, (0, 0, 255), 3)
                 # Draw the descriptive text
-                cv2.putText(roi, "Euro Coin", (i[0], i[1]),
+                cv2.putText(roi, "Euro Coin " + str(c[3]), (int(c[0]), int(c[1])),
                     cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255), 2)
 
 
