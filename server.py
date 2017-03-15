@@ -2,9 +2,9 @@ import base64
 from PIL import Image
 from StringIO import StringIO
 import numpy as np
-import cv2
 from flask import Flask, request
 from flask_cors import CORS
+from euro_detect import euro_detect
 import json
 app = Flask(__name__)
 CORS(app)
@@ -17,21 +17,9 @@ def readb64(base64_string):
     #return cv2.cvtColor(np.array(pimg), cv2.COLOR_RGB2BGR)
 
 @app.route("/", methods=['POST'])
-def euro_detect():
+def on_request():
     roi = readb64(request.data)
-    gray = cv2.cvtColor(roi, cv2.COLOR_RGB2GRAY)
-    # Adaptive Thresholding
-    gray_blur = cv2.GaussianBlur(gray, (15, 15), 0)
-    thresh = cv2.adaptiveThreshold(gray_blur, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
-        cv2.THRESH_BINARY_INV, 11, 2)
-
-    # Circle detection
-    circles = cv2.HoughCircles(gray_blur, cv2.HOUGH_GRADIENT, 1, 64,
-                                param1=20, param2=40, minRadius=24, maxRadius=96)
-
-    cv2.imwrite('gray_blur.jpg', gray_blur)
-    cv2.imwrite('thresh.jpg', thresh)
-    print circles
+    circles = euro_detect(roi);
     return json.dumps(circles.tolist(), ensure_ascii=False)
 
 if __name__ == "__main__":
