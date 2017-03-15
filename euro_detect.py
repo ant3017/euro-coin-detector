@@ -32,9 +32,15 @@ class Coin:
 
     def __color_categorization(self):
         """Categorize the coins using their colors."""
-        if self.hue > 100 and self.hue < 280 and self.saturation < 50:
+        if self.saturation < 50 and self.hue >= 100 and self.hue < 280:
             self.category = "1e"
-
+        elif self.saturation > 90 and self.hue >= 15 and self.hue < 100:
+            self.category = "X0c"
+        elif self.saturation > 90 and ((self.hue >= 0 and self.hue < 15) or
+            (self.hue >= 280)):
+            self.category = "Xc"
+        else:
+            self.category = "non-euro-coin"
 
 
 
