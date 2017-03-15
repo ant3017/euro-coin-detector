@@ -60,8 +60,7 @@ def euro_detect(rgb):
     coins = None
     if circles is not None:
         # Initialize coins using those detected circles
-        coins = [Coin(circle[0][0], circle[0][1], circle[0][2])
-            for circle in circles.tolist()]
+        coins = map(lambda c: Coin(c[0], c[1], c[2]), circles[0])
 
 
     # cv2.imwrite('gray_blur.jpg', gray_blur)
