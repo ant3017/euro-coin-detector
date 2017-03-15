@@ -4,6 +4,9 @@ import cv2
 FRAME_WIDTH = 640
 
 def euro_detect(rgb_stream):
+    """Detect the euro coins from a RGB stream of a colored image and returns
+    the detection results."""
+
     gray = cv2.cvtColor(rgb_stream, cv2.COLOR_RGB2GRAY)
 
     # Adaptive Thresholding
@@ -24,6 +27,9 @@ def euro_detect(rgb_stream):
 
 
 if __name__ == "__main__":
+    # If this script is running as a standalone program, start the video camera
+    # and show the detection results in real-time.
+
     cap = cv2.VideoCapture(0)
 
     while(True):
@@ -34,7 +40,7 @@ if __name__ == "__main__":
         circles = euro_detect(roi)
 
         circle_mask = np.zeros((height, width), np.uint8)
-        
+
         if circles is not None:
             circles = np.uint16(np.around(circles))
 
