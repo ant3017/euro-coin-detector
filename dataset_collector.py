@@ -1,6 +1,8 @@
 import numpy as np
 import cv2
 import time
+from sys import argv
+
 
 FRAME_WIDTH = 640
 
@@ -36,6 +38,14 @@ def collect_euro_coin(img):
 
 if __name__ == "__main__":
     # If this script is running as a standalone program, start a demo
+    if len(argv) > 1:
+        for file_name in argv[1:]:
+            print file_name
+            img = cv2.imread(file_name)
+            height, width, depth = img.shape
+            roi = cv2.resize(img, (FRAME_WIDTH, FRAME_WIDTH * height / width))
+            collect_euro_coin(roi)
+        quit()
     option = raw_input('(V)ideo cam, or (L)oad an image file?')
     option = option.lower()
     if option == 'l':
@@ -43,6 +53,8 @@ if __name__ == "__main__":
         file_name = raw_input('Enter an image file name: ')
 
         img = cv2.imread(file_name)
+        height, width, depth = img.shape
+        roi = cv2.resize(img, (FRAME_WIDTH, FRAME_WIDTH * height / width))
         collect_euro_coin(img)
 
 
