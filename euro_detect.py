@@ -13,18 +13,29 @@ class Coin:
         self.x = x;
         self.y = y;
         self.r = r;
-        self.center_hue = self.__get_center_hue()
+        self.__process_color()
+        self.__color_categorization()
 
-    def __get_center_hue(self):
-        """Update the hue of this coin's center area."""
+    def __process_color(self):
+        """Process the colors of this coin's center area."""
         # Only use half of the coin area to determine it's center color
         r = self.r * 0.5
 
         roi = Coin.hsv[int(self.y-r):int(self.y+r), int(self.x-r):int(self.x+r)]
 
         if len(roi) > 0:
-            return (sum([pixel[0] for rows in roi for pixel in rows])
+            self.hue = (sum([pixel[0] for rows in roi for pixel in rows])
                 / len(roi) / len(roi[0]))
+            self.saturation = (sum([pixel[1] for rows in roi for pixel in rows])
+                / len(roi) / len(roi[0]))
+
+
+    def __color_categorization(self):
+        """Categorize the coins using their colors."""
+        if self.hue > 100 and self.hue < 280 and self.saturation < 50:
+            self.category = "1e"
+
+
 
 
 def euro_detect(rgb):
@@ -72,6 +83,7 @@ def demo(roi):
             # Draw into the circle mask
             cv2.circle(circle_mask, (int(c.x), int(c.y)), int(c.r),
                 1, thickness=-1)
+
     masked_data = cv2.bitwise_and(roi, roi, mask=circle_mask)
 
     if coins is not None:
@@ -81,12 +93,20 @@ def demo(roi):
                 (0, 255, 0), 2)
             # Draw the center of the circle
             cv2.circle(roi, (int(c.x), int(c.y)), 2, (0, 0, 255), 3)
+
             # Draw the hue sampling area
-            cv2.rectangle(roi, (int(c.x - c.r*0.5), int(c.y - c.r*0.5)),
+            cv2.rectangle(masked_data, (int(c.x - c.r*0.5), int(c.y - c.r*0.5)),
                 (int(c.x + c.r*0.5), int(c.y + c.r*0.5)), (0, 255, 0), 1)
             # Draw the descriptive text
-            cv2.putText(roi, "Hue " + str(c.center_hue), (int(c.x), int(c.y)),
-                cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255), 2)
+            cv2.putText(masked_data, "Hue " + str(c.hue),
+                (int(c.x - c.r), int(c.y - c.r - 32)),
+                cv2.FONT_HERSHEY_PLAIN, 1,(255,255,255), 1)
+            cv2.putText(masked_data, "Saturation " + str(c.saturation),
+                (int(c.x - c.r), int(c.y - c.r - 16)),
+                cv2.FONT_HERSHEY_PLAIN, 1,(255,255,255), 1)
+            cv2.putText(masked_data, "Category " + str(c.category),
+                (int(c.x - c.r), int(c.y - c.r)),
+                cv2.FONT_HERSHEY_PLAIN, 1,(255,255,255), 1)
 
 
     cv2.imshow('Detected Coins', cv2.cvtColor(masked_data, cv2.COLOR_RGB2BGR))
