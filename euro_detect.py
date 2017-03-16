@@ -1,6 +1,7 @@
 import numpy as np
 import cv2
 import json
+import math
 
 FRAME_WIDTH = 640
 
@@ -14,7 +15,7 @@ class Coin:
         self.x = x;
         self.y = y;
         self.r = r;
-        self.classifications = {}
+        self.results = {}
         self.feature = {}
         self.__process_color()
         self.__classification()
@@ -37,13 +38,33 @@ class Coin:
 
     def __classification(self):
         """Classify the coins using their colors."""
-        print Coin.classifier;
         for classification in Coin.classifier:
-            print classification
+            self.results[classification] = {}
             for feature in Coin.classifier[classification]:
                 f = Coin.classifier[classification][feature]
-                #if self.
+                x = self.feature[feature]
+                z = (x - float(f['mean'])) / float(f['std_deviation'])
+                self.results[classification][feature] = z
 
+            z = self.results[classification]
+            z = z['hue'] * 0.5 + z['saturation'] * 0.4 + z['lightness'] * 0.1
+            self.results[classification] = z
+            p = 0.5 * (1 + math.erf(z / math.sqrt(2)))
+            p = (1 - p)
+            print classification + " {0:.2f}".format(p)
+                # self.results[classification][feature] = {
+                #     'x': x,
+                #     'mean': float(f['mean']),
+                #     'sd': float(f['std_deviation']),
+                #     'z': z
+                # }
+
+                # if sf < cf['minimum'] or sf > cf['maximum']:
+                #     # No existing data matches
+                #     continue
+                # elif (sf < cf['median'] - cf['std_deviation'] or
+                #     sf < cf['median'] + cf['std_deviation']):
+        print self.results
         # if self.saturation < 50 and self.hue >= 100 and self.hue < 280:
         #     self.category = "1e"
         # elif self.saturation > 80 and self.hue >= 15 and self.hue < 100:
