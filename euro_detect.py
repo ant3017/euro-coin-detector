@@ -28,15 +28,22 @@ class Coin:
         # Only use half of the coin area to determine it's center color
         r = self.r * 0.5
 
-        roi = Coin.hsv[int(self.y-r):int(self.y+r), int(self.x-r):int(self.x+r)]
+        roi = Coin.rgb[int(self.y-r):int(self.y+r), int(self.x-r):int(self.x+r)]
 
         if len(roi) > 0:
-            self.feature['hue'] = (sum([pixel[0] for rows in roi for
-                pixel in rows]) / len(roi) / len(roi[0]))
-            self.feature['saturation'] = (sum([pixel[1] for rows in roi for
-                pixel in rows]) / len(roi) / len(roi[0]))
-            self.feature['lightness'] = (sum([pixel[2] for rows in roi for
-                pixel in rows]) / len(roi) / len(roi[0]))
+            yuv = cv2.cvtColor(roi, cv2.COLOR_RGB2YUV)
+            # Contrast stretching, equalize the histogram of the Y channel
+            yuv[:,:,0] = cv2.equalizeHist(yuv[:,:,0])
+            # convert the YUV image back to RGB format
+            roi = cv2.cvtColor(yuv, cv2.COLOR_YUV2RGB)
+            hsv = cv2.cvtColor(roi, cv2.COLOR_RGB2HSV)
+
+            self.feature['hue'] = (sum([pixel[0] for rows in hsv for
+                pixel in rows]) / len(hsv) / len(hsv[0]))
+            self.feature['saturation'] = (sum([pixel[1] for rows in hsv for
+                pixel in rows]) / len(hsv) / len(hsv[0]))
+            self.feature['lightness'] = (sum([pixel[2] for rows in hsv for
+                pixel in rows]) / len(hsv) / len(hsv[0]))
 
 
     def __classification(self):

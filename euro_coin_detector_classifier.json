@@ -22,226 +22,322 @@
     "classification": {
         "X0c": {
             "hue": {
-                "count": 319,
+                "count": 2237,
                 "f_quartile": 15.0,
                 "t_quartile": 19.0,
-                "median": 16.0,
-                "maximum": 94,
-                "std_deviation": 12.177299881475225,
-                "minimum": 11,
-                "mean": 19.661442006269592
+                "median": 17.0,
+                "maximum": 93,
+                "std_deviation": 5.2248425154305318,
+                "minimum": 10,
+                "mean": 17.406794814483682
             },
             "saturation": {
-                "count": 319,
-                "f_quartile": 109.0,
-                "t_quartile": 168.0,
-                "median": 137.0,
-                "maximum": 214,
-                "std_deviation": 39.882724031620853,
-                "minimum": 26,
-                "mean": 137.30407523510971
+                "count": 2237,
+                "f_quartile": 143.0,
+                "t_quartile": 180.0,
+                "median": 165.0,
+                "maximum": 226,
+                "std_deviation": 29.663242505605012,
+                "minimum": 32,
+                "mean": 159.13187304425571
             },
             "lightness": {
-                "count": 319,
-                "f_quartile": 116.0,
-                "t_quartile": 164.0,
-                "median": 137.0,
-                "maximum": 248,
-                "std_deviation": 35.540321253515941,
-                "minimum": 71,
-                "mean": 141.21316614420061
+                "count": 2237,
+                "f_quartile": 130.0,
+                "t_quartile": 162.0,
+                "median": 146.0,
+                "maximum": 206,
+                "std_deviation": 21.769153760974497,
+                "minimum": 80,
+                "mean": 145.66070630308448
             }
         },
         "10c": {
             "hue": {
-                "count": 149,
+                "count": 988,
                 "f_quartile": 16.0,
-                "t_quartile": 20.0,
-                "median": 17.0,
-                "maximum": 94,
-                "std_deviation": 16.618924157458103,
-                "minimum": 12,
-                "mean": 22.181208053691275
-            },
-            "saturation": {
-                "count": 149,
-                "f_quartile": 118.0,
-                "t_quartile": 168.0,
-                "median": 144.0,
-                "maximum": 209,
-                "std_deviation": 38.987603693300606,
-                "minimum": 39,
-                "mean": 139.62416107382549
-            },
-            "lightness": {
-                "count": 149,
-                "f_quartile": 111.0,
-                "t_quartile": 170.0,
-                "median": 140.0,
-                "maximum": 239,
-                "std_deviation": 40.877622802015729,
-                "minimum": 71,
-                "mean": 142.59060402684563
-            }
-        },
-        "50c": {
-            "hue": {
-                "count": 22,
-                "f_quartile": 15.25,
-                "t_quartile": 17.0,
-                "median": 16.0,
-                "maximum": 21,
-                "std_deviation": 2.4342596070901608,
+                "t_quartile": 19.0,
+                "median": 18.0,
+                "maximum": 93,
+                "std_deviation": 6.9160388586533017,
                 "minimum": 11,
-                "mean": 16.727272727272727
+                "mean": 18.383603238866396
             },
             "saturation": {
-                "count": 22,
-                "f_quartile": 110.5,
-                "t_quartile": 151.75,
-                "median": 138.0,
-                "maximum": 185,
-                "std_deviation": 29.227131344207734,
-                "minimum": 71,
-                "mean": 134.95454545454547
+                "count": 988,
+                "f_quartile": 160.0,
+                "t_quartile": 186.0,
+                "median": 174.0,
+                "maximum": 226,
+                "std_deviation": 23.686367488029557,
+                "minimum": 43,
+                "mean": 170.9402834008097
             },
             "lightness": {
-                "count": 22,
-                "f_quartile": 118.75,
-                "t_quartile": 153.25,
-                "median": 134.5,
-                "maximum": 210,
-                "std_deviation": 30.375644060103742,
-                "minimum": 98,
-                "mean": 140.04545454545453
-            }
-        },
-        "2e": {
-            "hue": {
-                "count": 3,
-                "f_quartile": 16.5,
-                "t_quartile": 22.5,
-                "median": 17.0,
-                "maximum": 28,
-                "std_deviation": 5.4365021434333629,
-                "minimum": 16,
-                "mean": 20.333333333333332
-            },
-            "saturation": {
-                "count": 3,
-                "f_quartile": 69.5,
-                "t_quartile": 116.0,
-                "median": 102.0,
-                "maximum": 130,
-                "std_deviation": 38.955815426654283,
-                "minimum": 37,
-                "mean": 89.666666666666671
-            },
-            "lightness": {
-                "count": 3,
-                "f_quartile": 140.5,
-                "t_quartile": 149.5,
-                "median": 143.0,
-                "maximum": 156,
-                "std_deviation": 7.5865377844940278,
-                "minimum": 138,
-                "mean": 145.66666666666666
+                "count": 988,
+                "f_quartile": 135.0,
+                "t_quartile": 165.0,
+                "median": 151.0,
+                "maximum": 205,
+                "std_deviation": 21.975253516542811,
+                "minimum": 80,
+                "mean": 149.36437246963564
             }
         },
         "20c": {
             "hue": {
-                "count": 148,
+                "count": 633,
                 "f_quartile": 15.0,
-                "t_quartile": 17.0,
-                "median": 16.0,
-                "maximum": 41,
-                "std_deviation": 5.3476773833730737,
-                "minimum": 13,
-                "mean": 17.560810810810811
+                "t_quartile": 18.0,
+                "median": 17.0,
+                "maximum": 42,
+                "std_deviation": 3.7475697098103149,
+                "minimum": 10,
+                "mean": 17.440758293838861
             },
             "saturation": {
-                "count": 148,
-                "f_quartile": 106.0,
-                "t_quartile": 174.25,
-                "median": 132.0,
-                "maximum": 214,
-                "std_deviation": 41.964115487853036,
-                "minimum": 26,
-                "mean": 135.31756756756758
+                "count": 633,
+                "f_quartile": 112.0,
+                "t_quartile": 150.0,
+                "median": 130.0,
+                "maximum": 213,
+                "std_deviation": 28.626523355475708,
+                "minimum": 32,
+                "mean": 131.39652448657188
             },
             "lightness": {
-                "count": 148,
-                "f_quartile": 118.75,
-                "t_quartile": 157.25,
+                "count": 633,
+                "f_quartile": 123.0,
+                "t_quartile": 147.0,
+                "median": 136.0,
+                "maximum": 196,
+                "std_deviation": 18.951495674435733,
+                "minimum": 85,
+                "mean": 135.13902053712479
+            }
+        },
+        "Xc": {
+            "hue": {
+                "count": 1857,
+                "f_quartile": 8.0,
+                "t_quartile": 11.0,
+                "median": 10.0,
+                "maximum": 38,
+                "std_deviation": 2.4236938527388547,
+                "minimum": 3,
+                "mean": 9.8976844372644042
+            },
+            "saturation": {
+                "count": 1857,
+                "f_quartile": 117.0,
+                "t_quartile": 161.0,
+                "median": 138.0,
+                "maximum": 214,
+                "std_deviation": 29.510244624429284,
+                "minimum": 20,
+                "mean": 138.86052773290254
+            },
+            "lightness": {
+                "count": 1857,
+                "f_quartile": 136.0,
+                "t_quartile": 166.0,
+                "median": 152.0,
+                "maximum": 224,
+                "std_deviation": 22.432245656744985,
+                "minimum": 87,
+                "mean": 152.09316101238556
+            }
+        },
+        "2e": {
+            "hue": {
+                "count": 1078,
+                "f_quartile": 14.0,
+                "t_quartile": 17.0,
+                "median": 16.0,
+                "maximum": 85,
+                "std_deviation": 3.0224611879538634,
+                "minimum": 7,
+                "mean": 15.620593692022263
+            },
+            "saturation": {
+                "count": 1078,
+                "f_quartile": 116.0,
+                "t_quartile": 160.0,
                 "median": 137.0,
-                "maximum": 248,
-                "std_deviation": 29.991890795905373,
-                "minimum": 76,
-                "mean": 140.0
+                "maximum": 223,
+                "std_deviation": 30.882452434250595,
+                "minimum": 8,
+                "mean": 137.91651205936921
+            },
+            "lightness": {
+                "count": 1078,
+                "f_quartile": 142.0,
+                "t_quartile": 167.0,
+                "median": 154.0,
+                "maximum": 204,
+                "std_deviation": 20.146486562883432,
+                "minimum": 80,
+                "mean": 153.18367346938774
+            }
+        },
+        "1c": {
+            "hue": {
+                "count": 369,
+                "f_quartile": 9.0,
+                "t_quartile": 11.0,
+                "median": 10.0,
+                "maximum": 15,
+                "std_deviation": 1.6116848099112855,
+                "minimum": 5,
+                "mean": 10.097560975609756
+            },
+            "saturation": {
+                "count": 369,
+                "f_quartile": 155.0,
+                "t_quartile": 177.0,
+                "median": 165.0,
+                "maximum": 203,
+                "std_deviation": 16.553796317795136,
+                "minimum": 116,
+                "mean": 165.91598915989161
+            },
+            "lightness": {
+                "count": 369,
+                "f_quartile": 142.0,
+                "t_quartile": 168.0,
+                "median": 156.0,
+                "maximum": 221,
+                "std_deviation": 21.573737504787065,
+                "minimum": 105,
+                "mean": 156.27913279132792
             }
         },
         "1e": {
             "hue": {
-                "count": 32,
-                "f_quartile": 43.5,
-                "t_quartile": 93.0,
-                "median": 72.5,
-                "maximum": 146,
-                "std_deviation": 35.270148829250779,
-                "minimum": 14,
-                "mean": 67.21875
+                "count": 1416,
+                "f_quartile": 9.0,
+                "t_quartile": 16.0,
+                "median": 12.0,
+                "maximum": 170,
+                "std_deviation": 34.104082664503807,
+                "minimum": 3,
+                "mean": 26.057909604519775
             },
             "saturation": {
-                "count": 32,
-                "f_quartile": 43.75,
-                "t_quartile": 89.0,
-                "median": 55.0,
-                "maximum": 142,
-                "std_deviation": 34.912712024955894,
-                "minimum": 16,
-                "mean": 68.09375
+                "count": 1416,
+                "f_quartile": 44.0,
+                "t_quartile": 111.0,
+                "median": 81.0,
+                "maximum": 200,
+                "std_deviation": 39.735388861171927,
+                "minimum": 3,
+                "mean": 78.831920903954796
             },
             "lightness": {
-                "count": 32,
-                "f_quartile": 124.25,
-                "t_quartile": 162.25,
-                "median": 143.5,
-                "maximum": 232,
-                "std_deviation": 38.296221562152837,
-                "minimum": 55,
-                "mean": 142.34375
+                "count": 1416,
+                "f_quartile": 94.0,
+                "t_quartile": 143.0,
+                "median": 117.0,
+                "maximum": 218,
+                "std_deviation": 32.826717585171544,
+                "minimum": 52,
+                "mean": 120.11511299435028
+            }
+        },
+        "2c": {
+            "hue": {
+                "count": 99,
+                "f_quartile": 9.0,
+                "t_quartile": 11.0,
+                "median": 10.0,
+                "maximum": 15,
+                "std_deviation": 1.5214683138394125,
+                "minimum": 7,
+                "mean": 9.737373737373737
+            },
+            "saturation": {
+                "count": 99,
+                "f_quartile": 156.5,
+                "t_quartile": 177.0,
+                "median": 165.0,
+                "maximum": 202,
+                "std_deviation": 15.974714741437449,
+                "minimum": 123,
+                "mean": 165.20202020202021
+            },
+            "lightness": {
+                "count": 99,
+                "f_quartile": 141.0,
+                "t_quartile": 161.5,
+                "median": 151.0,
+                "maximum": 189,
+                "std_deviation": 15.091882650840489,
+                "minimum": 116,
+                "mean": 151.18181818181819
+            }
+        },
+        "50c": {
+            "hue": {
+                "count": 616,
+                "f_quartile": 14.0,
+                "t_quartile": 17.0,
+                "median": 16.0,
+                "maximum": 22,
+                "std_deviation": 1.972466061722822,
+                "minimum": 10,
+                "mean": 15.805194805194805
+            },
+            "saturation": {
+                "count": 616,
+                "f_quartile": 156.0,
+                "t_quartile": 181.0,
+                "median": 168.5,
+                "maximum": 224,
+                "std_deviation": 18.651756095886753,
+                "minimum": 85,
+                "mean": 168.69318181818181
+            },
+            "lightness": {
+                "count": 616,
+                "f_quartile": 136.0,
+                "t_quartile": 166.0,
+                "median": 151.0,
+                "maximum": 206,
+                "std_deviation": 20.441210866861368,
+                "minimum": 98,
+                "mean": 150.53246753246754
             }
         },
         "5c": {
             "hue": {
-                "count": 236,
-                "f_quartile": 9.0,
-                "t_quartile": 12.0,
-                "median": 11.0,
-                "maximum": 28,
-                "std_deviation": 3.0403893255288872,
-                "minimum": 4,
-                "mean": 10.957627118644067
+                "count": 1389,
+                "f_quartile": 8.0,
+                "t_quartile": 11.0,
+                "median": 10.0,
+                "maximum": 38,
+                "std_deviation": 2.6427839325594071,
+                "minimum": 3,
+                "mean": 9.8560115190784732
             },
             "saturation": {
-                "count": 236,
-                "f_quartile": 164.0,
-                "t_quartile": 201.0,
-                "median": 189.5,
-                "maximum": 213,
-                "std_deviation": 28.640275298027372,
-                "minimum": 61,
-                "mean": 179.92372881355934
+                "count": 1389,
+                "f_quartile": 112.0,
+                "t_quartile": 147.0,
+                "median": 128.0,
+                "maximum": 214,
+                "std_deviation": 27.334895199262309,
+                "minimum": 20,
+                "mean": 129.79553635709144
             },
             "lightness": {
-                "count": 236,
-                "f_quartile": 109.0,
-                "t_quartile": 156.25,
-                "median": 130.0,
-                "maximum": 246,
-                "std_deviation": 36.872026048769122,
-                "minimum": 70,
-                "mean": 135.86864406779662
+                "count": 1389,
+                "f_quartile": 134.0,
+                "t_quartile": 166.0,
+                "median": 151.0,
+                "maximum": 224,
+                "std_deviation": 22.957861218591709,
+                "minimum": 87,
+                "mean": 151.0460763138949
             }
         }
     },
