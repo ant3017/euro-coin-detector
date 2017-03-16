@@ -1,5 +1,6 @@
 import numpy as np
 import cv2
+import json
 
 FRAME_WIDTH = 640
 
@@ -13,8 +14,10 @@ class Coin:
         self.x = x;
         self.y = y;
         self.r = r;
+        self.classifications = {}
+        self.feature = {}
         self.__process_color()
-        self.__color_categorization()
+        self.__classification()
 
     def __process_color(self):
         """Process the colors of this coin's center area."""
@@ -24,23 +27,32 @@ class Coin:
         roi = Coin.hsv[int(self.y-r):int(self.y+r), int(self.x-r):int(self.x+r)]
 
         if len(roi) > 0:
-            self.hue = (sum([pixel[0] for rows in roi for pixel in rows])
-                / len(roi) / len(roi[0]))
-            self.saturation = (sum([pixel[1] for rows in roi for pixel in rows])
-                / len(roi) / len(roi[0]))
+            self.feature['hue'] = (sum([pixel[0] for rows in roi for
+                pixel in rows]) / len(roi) / len(roi[0]))
+            self.feature['saturation'] = (sum([pixel[1] for rows in roi for
+                pixel in rows]) / len(roi) / len(roi[0]))
+            self.feature['lightness'] = (sum([pixel[2] for rows in roi for
+                pixel in rows]) / len(roi) / len(roi[0]))
 
 
-    def __color_categorization(self):
-        """Categorize the coins using their colors."""
-        if self.saturation < 50 and self.hue >= 100 and self.hue < 280:
-            self.category = "1e"
-        elif self.saturation > 90 and self.hue >= 15 and self.hue < 100:
-            self.category = "X0c"
-        elif self.saturation > 90 and ((self.hue >= 0 and self.hue < 15) or
-            (self.hue >= 280)):
-            self.category = "Xc"
-        else:
-            self.category = "non-euro-coin"
+    def __classification(self):
+        """Classify the coins using their colors."""
+        print Coin.classifier;
+        for classification in Coin.classifier:
+            print classification
+            for feature in Coin.classifier[classification]:
+                f = Coin.classifier[classification][feature]
+                #if self.
+
+        # if self.saturation < 50 and self.hue >= 100 and self.hue < 280:
+        #     self.category = "1e"
+        # elif self.saturation > 80 and self.hue >= 15 and self.hue < 100:
+        #     self.category = "X0c"
+        # elif self.saturation > 80 and ((self.hue >= 0 and self.hue < 15) or
+        #     (self.hue >= 280)):
+        #     self.category = "Xc"
+        # else:
+        #     self.category = "non-euro-coin"
 
 
 
@@ -52,6 +64,8 @@ def euro_detect(rgb):
     Coin.rgb = rgb
     Coin.gray = cv2.cvtColor(rgb, cv2.COLOR_RGB2GRAY)
     Coin.hsv = cv2.cvtColor(rgb, cv2.COLOR_RGB2HSV)
+    with open('euro_coin_detector_classifier.json') as infile:
+        Coin.classifier = json.load(infile)['classification']
 
     # Adaptive Thresholding
     gray_blur = cv2.GaussianBlur(Coin.gray, (15, 15), 0)
@@ -103,15 +117,16 @@ def demo(roi):
             cv2.rectangle(masked_data, (int(c.x - c.r*0.5), int(c.y - c.r*0.5)),
                 (int(c.x + c.r*0.5), int(c.y + c.r*0.5)), (0, 255, 0), 1)
             # Draw the descriptive text
-            cv2.putText(masked_data, "Hue " + str(c.hue),
+            cv2.putText(masked_data, "Hue " + str(c.feature['hue']),
                 (int(c.x - c.r), int(c.y - c.r - 32)),
                 cv2.FONT_HERSHEY_PLAIN, 1,(255,255,255), 1)
-            cv2.putText(masked_data, "Saturation " + str(c.saturation),
+            cv2.putText(masked_data, "Saturation " +
+                str(c.feature['saturation']),
                 (int(c.x - c.r), int(c.y - c.r - 16)),
                 cv2.FONT_HERSHEY_PLAIN, 1,(255,255,255), 1)
-            cv2.putText(masked_data, "Category " + str(c.category),
-                (int(c.x - c.r), int(c.y - c.r)),
-                cv2.FONT_HERSHEY_PLAIN, 1,(255,255,255), 1)
+            # cv2.putText(masked_data, "Category " + str(c.category),
+            #     (int(c.x - c.r), int(c.y - c.r)),
+            #     cv2.FONT_HERSHEY_PLAIN, 1,(255,255,255), 1)
 
 
     cv2.imshow('Detected Coins', cv2.cvtColor(masked_data, cv2.COLOR_RGB2BGR))
