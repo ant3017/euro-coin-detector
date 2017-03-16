@@ -43,37 +43,24 @@ class Coin:
             for feature in Coin.classifier[classification]:
                 f = Coin.classifier[classification][feature]
                 x = self.feature[feature]
+
+                # if x < f['minimum'] or x > f['maximum']:
+                #     # No existing data matches
+                #     self.results[classification][feature] = 99999
+                #     continue
+                # else:
+
+                # Calculate the z-score of this feature
                 z = (x - float(f['mean'])) / float(f['std_deviation'])
                 self.results[classification][feature] = z
 
             z = self.results[classification]
-            z = z['hue'] * 0.5 + z['saturation'] * 0.4 + z['lightness'] * 0.1
-            self.results[classification] = z
-            p = 0.5 * (1 + math.erf(z / math.sqrt(2)))
-            p = (1 - p)
-            print classification + " {0:.2f}".format(p)
-                # self.results[classification][feature] = {
-                #     'x': x,
-                #     'mean': float(f['mean']),
-                #     'sd': float(f['std_deviation']),
-                #     'z': z
-                # }
+            z = z['hue'] * 0.6 + z['saturation'] * 0.35 + z['lightness'] * 0.05
 
-                # if sf < cf['minimum'] or sf > cf['maximum']:
-                #     # No existing data matches
-                #     continue
-                # elif (sf < cf['median'] - cf['std_deviation'] or
-                #     sf < cf['median'] + cf['std_deviation']):
-        print self.results
-        # if self.saturation < 50 and self.hue >= 100 and self.hue < 280:
-        #     self.category = "1e"
-        # elif self.saturation > 80 and self.hue >= 15 and self.hue < 100:
-        #     self.category = "X0c"
-        # elif self.saturation > 80 and ((self.hue >= 0 and self.hue < 15) or
-        #     (self.hue >= 280)):
-        #     self.category = "Xc"
-        # else:
-        #     self.category = "non-euro-coin"
+            # Convert the z-score to p value (probability)
+            #p = 0.5 * (1.0 + math.erf(z / math.sqrt(2.0)))
+            p = 1.0 + math.erf(-z / math.sqrt(2.0))
+            self.results[classification] = p
 
 
 
@@ -145,9 +132,12 @@ def demo(roi):
                 str(c.feature['saturation']),
                 (int(c.x - c.r), int(c.y - c.r - 16)),
                 cv2.FONT_HERSHEY_PLAIN, 1,(255,255,255), 1)
-            # cv2.putText(masked_data, "Category " + str(c.category),
-            #     (int(c.x - c.r), int(c.y - c.r)),
-            #     cv2.FONT_HERSHEY_PLAIN, 1,(255,255,255), 1)
+            for w in sorted(c.results, key=c.results.get, reverse=True):
+                cv2.putText(masked_data, w + " ("
+                    + "{:.2f}".format(c.results[w] * 100) + "%)",
+                    (int(c.x - c.r), int(c.y - c.r)),
+                    cv2.FONT_HERSHEY_PLAIN, 1,(255,255,255), 1)
+                break
 
 
     cv2.imshow('Detected Coins', cv2.cvtColor(masked_data, cv2.COLOR_RGB2BGR))
