@@ -15,7 +15,10 @@ class Coin:
         self.x = x;
         self.y = y;
         self.r = r;
-        self.results = {}
+        self.result = {
+            'p': {}, # the p value, probability
+            'z': {}, # the z score
+        }
         self.feature = {}
         self.__process_color()
         self.__classification()
@@ -39,28 +42,30 @@ class Coin:
     def __classification(self):
         """Classify the coins using their colors."""
         for classification in Coin.classifier:
-            self.results[classification] = {}
+            self.result['z'][classification] = {}
             for feature in Coin.classifier[classification]:
                 f = Coin.classifier[classification][feature]
                 x = self.feature[feature]
 
                 # if x < f['minimum'] or x > f['maximum']:
                 #     # No existing data matches
-                #     self.results[classification][feature] = 99999
+                #     self.result[classification][feature] = 99999
                 #     continue
                 # else:
 
                 # Calculate the z-score of this feature
                 z = (x - float(f['mean'])) / float(f['std_deviation'])
-                self.results[classification][feature] = z
+                self.result['z'][classification][feature] = z
 
-            z = self.results[classification]
-            z = z['hue'] * 0.6 + z['saturation'] * 0.35 + z['lightness'] * 0.05
+            z = self.result['z'][classification]
+            z = z['hue'] * 0.5 + z['saturation'] * 0.45 + z['lightness'] * 0.05
 
             # Convert the z-score to p value (probability)
             #p = 0.5 * (1.0 + math.erf(z / math.sqrt(2.0)))
-            p = 1.0 + math.erf(-z / math.sqrt(2.0))
-            self.results[classification] = p
+            p = 1.0 + math.erf(-abs(z) / math.sqrt(2.0))
+
+            self.result['z'][classification] = z
+            self.result['p'][classification] = p
 
 
 
@@ -132,9 +137,10 @@ def demo(roi):
                 str(c.feature['saturation']),
                 (int(c.x - c.r), int(c.y - c.r - 16)),
                 cv2.FONT_HERSHEY_PLAIN, 1,(255,255,255), 1)
-            for w in sorted(c.results, key=c.results.get, reverse=True):
-                cv2.putText(masked_data, w + " ("
-                    + "{:.2f}".format(c.results[w] * 100) + "%)",
+            for w in sorted(c.result['p'], key=c.result['p'].get, reverse=True):
+                cv2.putText(masked_data, w + " (" +
+                    "{:.2f}".format(c.result['p'][w] * 100) + "%) " +
+                    "Z: {:.2f}".format(c.result['z'][w]),
                     (int(c.x - c.r), int(c.y - c.r)),
                     cv2.FONT_HERSHEY_PLAIN, 1,(255,255,255), 1)
                 break
