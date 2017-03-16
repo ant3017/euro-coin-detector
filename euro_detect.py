@@ -42,7 +42,7 @@ class Coin:
     def __classification(self):
         """Classify the coins using their colors."""
         for classification in Coin.classifier:
-            self.result['z'][classification] = {}
+            z = {}
             for feature in Coin.classifier[classification]:
                 f = Coin.classifier[classification][feature]
                 x = self.feature[feature]
@@ -54,15 +54,15 @@ class Coin:
                 # else:
 
                 # Calculate the z-score of this feature
-                z = (x - float(f['mean'])) / float(f['std_deviation'])
-                self.result['z'][classification][feature] = z
+                z[feature] = (x - float(f['mean'])) / float(f['std_deviation'])
 
-            z = self.result['z'][classification]
-            z = z['hue'] * 0.5 + z['saturation'] * 0.45 + z['lightness'] * 0.05
+            z = (abs(z['hue']) * 0.5 +
+                abs(z['saturation']) * 0.45 +
+                abs(z['lightness']) * 0.05)
 
             # Convert the z-score to p value (probability)
             #p = 0.5 * (1.0 + math.erf(z / math.sqrt(2.0)))
-            p = 1.0 + math.erf(-abs(z) / math.sqrt(2.0))
+            p = 1.0 + math.erf(-z / math.sqrt(2.0))
 
             self.result['z'][classification] = z
             self.result['p'][classification] = p
