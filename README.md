@@ -22,15 +22,15 @@ Results
 | Original | Processed | Result |
 | :---: | :---: | :---: |
 | ![Original](demo/original.jpg) | ![Processed](demo/reconstructed-image.jpg) | ![Result](demo/segmented-results.jpg) |
-This is the results from the above image.
+
+This is the results from the above image.  
+
 |             | Coin 1 | Coin 2   | Coin 3 |
 | :---------- | :----: | :------: | :----: |
 | Hue         | 151    |  18      | 7      |
 | Saturation  | 30     |  127     | 133    |
 | Result      | 1 Euro |  20 Cent | 5 Cent |
 | Probability | 4.67%  |  70.79%  | 51.29% |
-
-
 
 
 Licensing
