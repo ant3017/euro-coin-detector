@@ -7,13 +7,13 @@ Introduction
 This project aims to develop a Euro Coin Detector that can recognize euro coins from natural images and classify them according to their coin denomination and tell their values.  
 
 This project consists of 4 conponents:  
-1) Euro Coin Classifier
+1) Euro Coin Classifier  
     The classifier is developed using artificial intelligence and machine learning technologies. The classifier uses a large amount of images of the euro coin series of each denomination to describe each euro coin type's attributes, such as their shape, size, color, patterns, etc. This is used to generalize the euro coins so later the classifier could be used to determine whether or not an arbitary object is a certain denomination of euro coin.  
-2) Euro Coin Detector
-    This program uses image processing and computer vision technologies to recognize the euro coins from natural images. Statistical calculations are used in the euro coin detection algorithm, with the previous trained Euro Coin Classifier, to determine the probabilities of the object classification.
-3) Euro Coin Detection Service API
-	This is a web-based API to allow other developers to easily implement this euro coin detection technology in their own projects. 
-4) Euro Coin Detection Demo Mobile App
+2) Euro Coin Detector  
+    This program uses image processing and computer vision technologies to recognize the euro coins from natural images. Statistical calculations are used in the euro coin detection algorithm, with the previous trained Euro Coin Classifier, to determine the probabilities of the object classification.  
+3) Euro Coin Detection Service API  
+	This is a web-based API to allow other developers to easily implement this euro coin detection technology in their own projects.  
+4) Euro Coin Detection Demo Mobile App  
 	This is a simple Apache Cordova based mobile app to demonstrate how this works in a mobile app.
 
 
@@ -22,6 +22,14 @@ Results
 | Original | Processed | Result |
 | :---: | :---: | :---: |
 | ![Original](demo/original.jpg) | ![Processed](demo/reconstructed-image.jpg) | ![Result](demo/segmented-results.jpg) |
+This is the results from the above image.
+|             | Coin 1 | Coin 2   | Coin 3 |
+| :---------- | :----: | :------: | :----: |
+| Hue         | 151    |  18      | 7      |
+| Saturation  | 30     |  127     | 133    |
+| Result      | 1 Euro |  20 Cent | 5 Cent |
+| Probability | 4.67%  |  70.79%  | 51.29% |
+
 
 
 
