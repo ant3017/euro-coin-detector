@@ -44,13 +44,19 @@ class Coin:
                 pixel in rows]) / len(hsv) / len(hsv[0]))
             self.feature['lightness'] = (sum([pixel[2] for rows in hsv for
                 pixel in rows]) / len(hsv) / len(hsv[0]))
+            self.feature['luma'] = (sum([pixel[0] for rows in yuv for
+                pixel in rows]) / len(yuv) / len(yuv[0]))
+            self.feature['blue_diff'] = (sum([pixel[1] for rows in yuv for
+                pixel in rows]) / len(yuv) / len(yuv[0]))
+            self.feature['red_diff'] = (sum([pixel[2] for rows in yuv for
+                pixel in rows]) / len(yuv) / len(yuv[0]))
 
 
     def __classification(self):
         """Classify the coins using their colors."""
         for classification in Coin.classifier:
             z = {}
-            for feature in Coin.classifier[classification]:
+            for feature in self.feature:
                 f = Coin.classifier[classification][feature]
                 x = self.feature[feature]
 
@@ -61,11 +67,19 @@ class Coin:
                 # else:
 
                 # Calculate the z-score of this feature
-                z[feature] = (x - float(f['mean'])) / float(f['std_deviation'])
+                z[feature] = ((x - float(f['median']))
+                    / float(f['std_deviation']))
 
-            z = (abs(z['hue']) * 0.5 +
-                abs(z['saturation']) * 0.45 +
-                abs(z['lightness']) * 0.05)
+
+            z = ((z['hue']) ** 2 * 0.20 +
+                (z['saturation']) ** 2 * 0.30 +
+                (z['lightness']) ** 2 * 0.10 +
+                (z['luma']) ** 2 * 0.10 +
+                (z['blue_diff']) ** 2 * 0.10 +
+                (z['red_diff']) ** 2 * 0.10) ** 0.5
+
+            # Euclidean distance
+            #z = sum(x**2 for x in z.itervalues()) ** 0.5
 
             # Convert the z-score to p value (probability)
             #p = 0.5 * (1.0 + math.erf(z / math.sqrt(2.0)))
@@ -102,9 +116,6 @@ def euro_detect(rgb):
         # Initialize coins using those detected circles
         coins = map(lambda c: Coin(c[0], c[1], c[2]), circles[0])
 
-
-    # cv2.imwrite('gray_blur.jpg', gray_blur)
-    # cv2.imwrite('thresh.jpg', thresh)
 
     return coins
 
